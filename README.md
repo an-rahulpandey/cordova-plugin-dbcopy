@@ -3,7 +3,7 @@ cordova-plugin-dbcopy
 
 Copy SQLite Database from assets(Android) or Resources(iOS) to App Directory
 
-#####Note
+###Note
 
 If you are using this [SQlite Plugin](https://github.com/brodysoft/Cordova-SQLitePlugin), then do not give the .db extension to your file while pasting it. Since the plugin automatically appends the .db extension while opening the database.
 
@@ -19,7 +19,7 @@ Put your sqlite database in the assets directory.
 Put your database in Resources directory and then Add it in to your Xcode Project.
 Right Click on the Resources directory, then click Add files.
 
-**Code**
+###Code
 
 In your JavaScript or HTML use the following method - 
 
