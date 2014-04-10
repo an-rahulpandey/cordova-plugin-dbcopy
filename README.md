@@ -20,6 +20,7 @@ Put your database in Resources directory and then Add it in to your Xcode Projec
 Right Click on the Resources directory, then click Add files.
 
 **Code**
+
 In your JavaScript or HTML use the following method - 
 
 ```
