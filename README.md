@@ -5,10 +5,6 @@ Copy SQLite Database from assets(Android) or Resources(iOS) to App Directory
 
 ###Note
 
-If you are using this [SQlite Plugin](https://github.com/brodysoft/Cordova-SQLitePlugin), then do not give the .db extension to your file while pasting it. Since the plugin automatically appends the .db extension while opening the database.
-
-For example, if you are database name is demo.db, then remove the .db extension and paste the file with a name "demo" only (without quotes".
-
 **Android**
 
 Put your sqlite database in the assets directory.                                                                    
