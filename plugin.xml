@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="me.rahul.plugins.sqlDB"
+        version="1.0.0"
+        xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <name>sqlDB</name>
+    
+    <description>Copy SQLite Database to Document Directory</description>
+    
+    <js-module name="sqlDB" src="www/sqlDB.js">
+        <clobbers target="window.plugins.sqlDB" />
+    </js-module>
+    
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="sqlDB">
+                <param name="android-package" value="me.rahul.plugins.sqlDB.sqlDB" />
+            </feature>
+        </config-file>
+        
+        <config-file parent="/manifest" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+        </config-file>
+        
+        <source-file src="src/android/sqlDB.java" target-dir="src/me/rahul/plugins/sqlDB/" />
+        <source-file src="src/android/DatabaseHelper.java" target-dir="src/me/rahul/plugins/sqlDB/" />
+        
+    </platform>
+    
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="sqlDB">
+                <param name="ios-package" value="sqlDB" />
+            </feature>
+        </config-file>
+        
+        <source-file src="src/ios/sqlDB.m" />
+    </platform>
+</plugin>
