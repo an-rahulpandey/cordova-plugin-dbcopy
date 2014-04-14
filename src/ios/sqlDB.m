@@ -2,33 +2,17 @@
 //  sqlDB Implementation File
 //  sqlDB Phonegap/Cordova Plugin
 //
-//  Created by Rahul Pandey on 09/04/14.
+//  Created by Rahul on 4/14/14.
 //
 //
 
-#import <Cordova/CDV.h>
-#import <Cordova/CDVPlugin.h>
-#import <Foundation/Foundation.h>
-
-@interface sqlDB : CDVPlugin {
-  // Member variables go here.
-    NSString* callbackId;
-    NSFileManager* fileManager;
-    NSArray* paths;
-    NSString* documentsDirectory;
-}
-
-@property (nonatomic, copy) NSString* callbackId;
-    
-- (void)copy:(CDVInvokedUrlCommand*)command;
-    
-@end
+#import "sqlDB.h"
 
 @implementation sqlDB
 
 - (void)copy:(CDVInvokedUrlCommand*)command
 {
-    self.callbackId = command.callbackId;
+
     BOOL success;
     NSError *error = nil;
     CDVPluginResult *result = nil;
@@ -67,7 +51,8 @@
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"File Already Exists"];
     }
     
-    [self.commandDelegate sendPluginResult:result callbackId:callbackId];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
+
 
 @end
