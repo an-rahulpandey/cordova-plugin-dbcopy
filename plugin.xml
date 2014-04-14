@@ -35,6 +35,7 @@
             </feature>
         </config-file>
         
+        <source-file src="src/ios/sqlDB.h" />
         <source-file src="src/ios/sqlDB.m" />
     </platform>
 </plugin>
