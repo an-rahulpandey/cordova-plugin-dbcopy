@@ -30,9 +30,10 @@ function copysuccess()
         //open db and run your queries
 }
 
-funtion copyerror()
+funtion copyerror(e)
 {
         //db already exists or problem in copying the db file. Check the Log.
+        console.log("Error = "+JSON.stringify(e));
 }
 
 ```
