@@ -24,11 +24,12 @@ Currently there is only one method which is to copy the db in documents director
         window.plugins.sqlDB.copy(dbname,success,error);
 ````
 Here -
-        **dbname** -> Is the name of the database you want to copy. The dbname can be filename (without extensions) or filename.db or filename.sqlite. The plugin will look for and copy the file according to the filename provided here. And the same file name should be used while opening the database via [SQLitePlugin](https://github.com/brodysoft/Cordova-SQLitePlugin).
+
+**dbname** -> Is the name of the database you want to copy. The dbname can be filename (without extensions) or filename.db or filename.sqlite. The plugin will look for and copy the file according to the filename provided here. And the same file name should be used while opening the database via [SQLitePlugin](https://github.com/brodysoft/Cordova-SQLitePlugin).
         
-        **success** -> function will be called if the db is copied sucessfully.
+**success** -> function will be called if the db is copied sucessfully.
         
-        **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location (Working on it to get more relevant results).
+**error** -> function will be called if the there is some problem in copying the db or the file already exists on the location (Working on it to get more relevant results).
 
 ###Example Usage
 
