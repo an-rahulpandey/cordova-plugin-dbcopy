@@ -8,6 +8,14 @@
     
     <description>Copy SQLite Database to Document Directory</description>
     
+     <license>Apache 2.0</license>
+     
+     <author>Rahul Pandey</author>
+     
+     <engines>
+        <engine name="cordova" version=">=3.0.0" />
+     </engines>
+    
     <js-module name="sqlDB" src="www/sqlDB.js">
         <clobbers target="window.plugins.sqlDB" />
     </js-module>
