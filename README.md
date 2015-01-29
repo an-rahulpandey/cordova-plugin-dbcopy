@@ -5,6 +5,8 @@ Copy SQLite Database from assets(Android) or Resources(iOS) to App Directory
 
 ###Note
 
+The database file may have extensions or not for e.g the db file name would be sample.db or sample.sqlite or sample. It doesn't matter what is the file extension, just remember to use the whole filename with extensions(if having one otherwise not) as a paramter when passing to the plugin methods.
+
 **Android**
 
 Put your sqlite database in the assets directory.                                                                    
@@ -18,10 +20,12 @@ Right Click on the Resources directory, then click Add files.
 
 ###Methods
 
-Currently there is only one method which is to copy the db in documents directory.
+Currently there are two methods supported by the plugin.
+
+1.**Copy** - This Method allows you the copy the database from the asset directory(for Android) or Resource directory (for iOS).
 
 ````
-        window.plugins.sqlDB.copy(dbname,success,error);
+window.plugins.sqlDB.copy(dbname,success,error);
 ````
 Here -
 
@@ -29,7 +33,20 @@ Here -
         
 **success** -> function will be called if the db is copied sucessfully.
         
-**error** -> function will be called if the there is some problem in copying the db or the file already exists on the location (Working on it to get more relevant results).
+**error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
+
+2.**Remove** - This method allows you to remove the database from the apps default database storage location.
+
+````
+window.plugins.sqlDB.remove(dbname,success,error);
+````
+Here -
+
+**dbname** -> Is the name of the database you want to copy. The dbname can be filename (without extensions) or filename.db or filename.sqlite. The plugin will look for and copy the file according to the filename provided here. And the same file name should be used while opening the database via [SQLitePlugin](https://github.com/brodysoft/Cordova-SQLitePlugin).
+        
+**success** -> function will be called if the db is copied sucessfully.
+        
+**error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
 
 ###Example Usage
 
@@ -42,6 +59,11 @@ function dbcopy()
         window.plugins.sqlDB.copy("demo.db",copysuccess,copyerror);
 }
 
+function removeDB()
+{
+      window.plugins.sqlDB.remove("demo.db",rmsuccess,rmerror);  
+}
+
 function copysuccess()
 {
         //open db and run your queries
@@ -51,7 +73,8 @@ function copysuccess()
 funtion copyerror(e)
 {
         //db already exists or problem in copying the db file. Check the Log.
-        console.log("Error = "+JSON.stringify(e));
+        console.log("Error Code = "+JSON.stringify(e));
+        //e.code = 516 => if db exists
 }
 
 ```
