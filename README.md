@@ -9,7 +9,7 @@ The database file may have extensions or not for e.g the db file name would be s
 
 **Android**
 
-Put your sqlite database in the assets directory.                                                                    
+Put your sqlite database in the assets directory.                                                                   
 
 
 **iOS**
@@ -22,31 +22,33 @@ Right Click on the Resources directory, then click Add files.
 
 Currently there are two methods supported by the plugin.
 
-* **Copy** - This Method allows you the copy the database from the asset directory(for Android) or Resource directory (for iOS).
+* ####Copy
+This Method allows you the copy the database from the asset directory(for Android) or Resource directory (for iOS).
 
-````
-window.plugins.sqlDB.copy(dbname,success,error);
-````
-Here -
+  ````
+    window.plugins.sqlDB.copy(dbname,success,error);
+  ````
+  Here -
 
-   **dbname** -> Is the name of the database you want to copy. The dbname can be filename (without extensions) or filename.db or filename.sqlite. The plugin will look for and copy the file according to the filename provided here. And the same file name should be used while opening the database via [SQLitePlugin](https://github.com/brodysoft/Cordova-SQLitePlugin).
+    **dbname** -> Is the name of the database you want to copy. The dbname can be filename (without extensions) or filename.db or filename.sqlite. The plugin will look for and copy the file according to the filename provided here. And the same file name should be used while opening the database via [SQLitePlugin](https://github.com/brodysoft/Cordova-SQLitePlugin).
         
-   **success** -> function will be called if the db is copied sucessfully.
+    **success** -> function will be called if the db is copied sucessfully.
         
-   **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
+    **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
 
-* **Remove** - This method allows you to remove the database from the apps default database storage location.
+* ####Remove
+This method allows you to remove the database from the apps default database storage location.
 
-````
-window.plugins.sqlDB.remove(dbname,success,error);
-````
-Here -
+  ````
+    window.plugins.sqlDB.remove(dbname,success,error);
+  ````
+  Here -
 
-   **dbname** -> Is the name of the database you want to copy. The dbname can be filename (without extensions) or filename.db or filename.sqlite. The plugin will look for and copy the file according to the filename provided here. And the same file name should be used while opening the database via [SQLitePlugin](https://github.com/brodysoft/Cordova-SQLitePlugin).
+    **dbname** -> Is the name of the database you want to remove. If the database file is having any extension, please provide that also.
         
-   **success** -> function will be called if the db is copied sucessfully.
+    **success** -> function will be called if the db is removed sucessfully.
         
-   **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
+    **error** -> function will be called if the there is some problem in removing the db or the file doesn't exists on the default database storage location.
 
 ###Example Usage
 
@@ -78,4 +80,3 @@ funtion copyerror(e)
 }
 
 ```
-
