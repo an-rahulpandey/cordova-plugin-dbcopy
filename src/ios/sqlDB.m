@@ -19,7 +19,7 @@
     NSString *dbname = [command argumentAtIndex:0];
     NSMutableDictionary *err = [NSMutableDictionary dictionaryWithCapacity:2];
     
-    NSLog(@"[sqlDB] Dbname = %@",dbname);
+    //NSLog(@"[sqlDB] Dbname = %@",dbname);
     
     paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     documentsDirectory = [paths objectAtIndex:0];
@@ -32,11 +32,16 @@
    // success = [fileManager fileExistsAtPath:dbPath isDirectory:NO];
     
     //if (!success) {
-        NSLog(@"[sqlDB] copying db file");
+      //  NSLog(@"[sqlDB] copying db file");
         
-        NSString *dbPathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:dbname];
-        NSLog(@"[sqlDB] Source: %@",dbPathFromApp);
-        NSLog(@"[sqlDB] Destinatiion: %@",dbPath);
+    
+    
+        NSString *wwwDir = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"www"];
+        NSString *dbPathFromApp = [wwwDir stringByAppendingPathComponent:dbname];
+    
+        //NSLog(@"[sqlDB] Source: %@",dbPathFromApp);
+        //NSLog(@"[sqlDB] Destinatiion: %@",dbPath);
+    
         if (!([fileManager copyItemAtPath:dbPathFromApp toPath:dbPath error:&error])) {
             NSLog(@"[sqlDB] Could not copy file from %@ to %@. Error = %@",dbPathFromApp,dbPath,error);
             
