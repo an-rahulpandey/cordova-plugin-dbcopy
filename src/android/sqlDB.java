@@ -63,8 +63,7 @@ public class sqlDB extends CordovaPlugin {
 				.getActivity().getApplicationContext());
 		dbpath = this.cordova.getActivity().getDatabasePath(dbname);
 		Boolean dbexists = dbpath.exists();
-		Log.d("CordovaLog", "DatabasePath = " + dbpath + "&&&& dbname = "
-				+ dbname + "&&&&DB Exists =" + dbexists);
+		//Log.d("CordovaLog", "DatabasePath = " + dbpath + "&&&& dbname = " + dbname + "&&&&DB Exists =" + dbexists);
 
 		if (dbexists) {
 			try {
