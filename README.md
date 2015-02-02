@@ -7,15 +7,9 @@ Copy SQLite Database from assets(Android) or Resources(iOS) to App Directory
 
 The database file may have extensions or not for e.g the db file name would be sample.db or sample.sqlite or sample. It doesn't matter what is the file extension, just remember to use the whole filename with extensions(if having one otherwise not) as a paramter when passing to the plugin methods.
 
-**Android**
+###Database file location
 
-Put your sqlite database in the assets directory.                                                                   
-
-
-**iOS**
-
-Put your database in Resources directory and then Add it in to your Xcode Project.
-Right Click on the Resources directory, then click Add files.
+The database initial location for both platforms has been now changed to www folder. Now you have to put your database file inside www folder.
 
 
 ###Methods
