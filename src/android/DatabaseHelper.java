@@ -35,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	private void copyDatabase(File database) throws IOException {
-		InputStream myInput = myContext.getAssets().open(sqlDB.dbname);
+		InputStream myInput = myContext.getAssets().open("www/"+sqlDB.dbname);
 		OutputStream myOutput = new FileOutputStream(database);
 		byte[] buffer = new byte[1024];
 		while ((myInput.read(buffer)) > -1) {
