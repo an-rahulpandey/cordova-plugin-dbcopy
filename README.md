@@ -66,7 +66,7 @@ function copysuccess()
          db = window.sqlitePlugin.openDatabase({name: "demo.db"});.
 }
 
-funtion copyerror(e)
+function copyerror(e)
 {
         //db already exists or problem in copying the db file. Check the Log.
         console.log("Error Code = "+JSON.stringify(e));
