@@ -11,6 +11,12 @@ The database file may have extensions or not for e.g the db file name would be s
 
 The database initial location for both platforms has been now changed to www folder. Now you have to put your database file inside www folder.
 
+###Installation
+
+Plugin can be install with simple cordova plugin add command -
+
+    cordova plugin add https://github.com/an-rahulpandey/cordova-plugin-dbcopy.git
+
 
 ###Methods
 
