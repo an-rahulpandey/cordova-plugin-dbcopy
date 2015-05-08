@@ -1,7 +1,7 @@
 cordova-plugin-dbcopy
 =====================
 
-Copy SQLite Database from assets(Android) or Resources(iOS) to App Directory
+Add a prepopulated SQLite database in your Phonegap/Cordova Android and iOS app.
 
 ###Note
 
