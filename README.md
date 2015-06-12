@@ -40,7 +40,7 @@ This Method allows you the copy the database from the asset directory(for Androi
       or
       location = 1; // If set will copy the database to Library folder instead of Documents folder.
       or
-      location = 2; // If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
+      location = 2; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
     ````
 
     **success** -> function will be called if the db is copied sucessfully.
