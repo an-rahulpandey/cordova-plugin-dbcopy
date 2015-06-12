@@ -51,7 +51,7 @@ This Method allows you the copy the database from the asset directory(for Androi
 This method allows you to remove the database from the apps default database storage location.
 
   ````
-    window.plugins.sqlDB.remove(dbname,locationsuccess,error);
+    window.plugins.sqlDB.remove(dbname, location, success,error);
   ````
   Here -
 
