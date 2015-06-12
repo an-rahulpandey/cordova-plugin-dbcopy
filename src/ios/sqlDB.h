@@ -15,8 +15,9 @@
 @interface sqlDB : CDVPlugin
 {
     NSFileManager* fileManager;
-    NSArray* paths;
+    NSString* dbPath;
     NSString* documentsDirectory;
+    NSString* libraryDirectory;
 }
 
 - (void)copy:(CDVInvokedUrlCommand*)command;
