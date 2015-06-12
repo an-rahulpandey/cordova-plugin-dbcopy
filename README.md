@@ -26,44 +26,71 @@ Currently there are two methods supported by the plugin.
 This Method allows you the copy the database from the asset directory(for Android) or Resource directory (for iOS).
 
   ````
-    window.plugins.sqlDB.copy(dbname,success,error);
+    window.plugins.sqlDB.copy(dbname, location, success,error);
   ````
   Here -
 
-    **dbname** -> Is the name of the database you want to copy. The dbname can be filename (without extensions) or filename.db or filename.sqlite. The plugin will look for and copy the file according to the filename provided here. And the same file name should be used while opening the database via [SQLitePlugin](https://github.com/brodysoft/Cordova-SQLitePlugin).
-        
+    **dbname** -> Is the name of the database you want to copy. The dbname can be filename (without extensions) or filename.db or filename.sqlite. The plugin will look for and copy the file according to the filename provided here. And the same file name should be used while opening the database via [SQLitePlugin](https://github.com/litehelpers/Cordova-sqlite-storage).
+
+    **location** -> You can pass three integer arguments here (Use 0 for Android)-
+
+    ````
+    (for ios only)
+      location = 0; // It will copy the database in the default SQLite Database directory. This is the default location for database
+      or
+      location = 1; // If set will copy the database to Library folder instead of Documents folder.
+      or
+      location = 2; // If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
+    ````
+
     **success** -> function will be called if the db is copied sucessfully.
-        
+
     **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
 
 * ####Remove
 This method allows you to remove the database from the apps default database storage location.
 
   ````
-    window.plugins.sqlDB.remove(dbname,success,error);
+    window.plugins.sqlDB.remove(dbname,locationsuccess,error);
   ````
   Here -
 
     **dbname** -> Is the name of the database you want to remove. If the database file is having any extension, please provide that also.
-        
+
+    **location** -> The integer value for the location of database, see the copy method for options.
+
     **success** -> function will be called if the db is removed sucessfully.
-        
+
     **error** -> function will be called if the there is some problem in removing the db or the file doesn't exists on the default database storage location.
 
 ###Example Usage
 
-In your JavaScript or HTML use the following method - 
+In your JavaScript or HTML use the following method -
 
 ```
 function dbcopy()
 {
         //Database filename to be copied is demo.db
-        window.plugins.sqlDB.copy("demo.db",copysuccess,copyerror);
+
+        //location = 0, will copy the db to default SQLite Database Directory
+        window.plugins.sqlDB.copy("demo.db", 0, copysuccess,copyerror);
+
+        or
+
+        //location = 1, will copy the database to /Library folder
+        window.plugins.sqlDB.copy("demo.db", 1, copysuccess,copyerror);
+
+        or
+
+        //location = 2, will copy the database to /Library/LocalDatabase folder (Disable iCloud Backup)
+        window.plugins.sqlDB.copy("demo.db", 2, copysuccess,copyerror);
+
 }
 
 function removeDB()
 {
-      window.plugins.sqlDB.remove("demo.db",rmsuccess,rmerror);  
+      var location = 1;
+      window.plugins.sqlDB.remove("demo.db", location, rmsuccess,rmerror);  
 }
 
 function copysuccess()

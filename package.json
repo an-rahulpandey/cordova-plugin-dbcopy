@@ -1,0 +1,37 @@
+{
+  "name": "cordova-plugin-dbcopy",
+  "version": "1.0.3",
+  "description": "Cordova/Phonegap plugin to copy SQLite Database from www directory to app database directory",
+  "cordova": {
+    "id": "me.rahul.plugins.sqlDB",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/an-rahulpandey/cordova-plugin-dbcopy.git"
+  },
+  "keywords": [
+    "sqlite db copy",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "db copy",
+    "database copy",
+    "sqlite database copy"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": "Rahul Pandey",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/an-rahulpandey/cordova-plugin-dbcopy/issues"
+  },
+  "homepage": "https://github.com/an-rahulpandey/cordova-plugin-dbcopy"
+}
