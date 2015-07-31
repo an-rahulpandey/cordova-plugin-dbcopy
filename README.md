@@ -23,7 +23,7 @@ Plugin can be install with simple cordova plugin add command -
 Currently there are two methods supported by the plugin.
 
 * ####Copy
-This Method allows you the copy the database from the asset directory(for Android) or Resource directory (for iOS).
+This Method allows you the copy the database from www directory.
 
   ````
     window.plugins.sqlDB.copy(dbname, location, success,error);
