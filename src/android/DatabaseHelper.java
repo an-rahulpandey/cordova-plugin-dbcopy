@@ -1,6 +1,7 @@
 package me.rahul.plugins.sqlDB;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,10 +23,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public void createdatabase(File dbPath) throws IOException {
 
+		createdatabase(null, dbPath);
+
+	}
+
+	public void createdatabase(String path, File dbPath) throws IOException {
+
 		// Log.d("CordovaLog","Inside CreateDatabase = "+dbPath);
 		this.getReadableDatabase();
 		try {
-			copyDatabase(dbPath);
+			copyDatabase(path, dbPath);
 		} catch (IOException e) {
 			throw new Error(
 					"Create Database Exception ============================ "
@@ -34,9 +41,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	}
 
+	public void exportdatabase(String path, File dbPath) throws IOException {
+
+		// Log.d("CordovaLog","Inside CreateDatabase = "+dbPath);
+		this.getReadableDatabase();
+		try {
+			copyDatabaseFrom(path, dbPath);
+		} catch (IOException e) {
+			throw new Error(
+					"Export Database Exception ============================ "
+							+ e);
+		}
+
+	}
+
 	private void copyDatabase(File database) throws IOException {
-		InputStream myInput = myContext.getAssets().open("www/"+sqlDB.dbname);
+		copyDatabase(null, database);
+	}
+
+	private void copyDatabase(String path, File database) throws IOException {
+		InputStream myInput;
+
+		if(path!=null){
+			File root = new File(Environment.getExternalStorageDirectory().getPath() + "/" + path + "/" + sqlDB.dbname);
+			myInput = new FileInputStream(root);
+		}else{
+			myInput = myContext.getAssets().open("www/"+sqlDB.dbname);
+		}
+
 		OutputStream myOutput = new FileOutputStream(database);
+		byte[] buffer = new byte[1024];
+		while ((myInput.read(buffer)) > -1) {
+			myOutput.write(buffer);
+		}
+
+		myOutput.flush();
+		myOutput.close();
+		myInput.close();
+
+	}
+
+	private void copyDatabaseFrom(String path, File database) throws IOException {
+		InputStream myInput = new FileInputStream(database);
+
+		OutputStream myOutput;
+		File root = new File(Environment.getExternalStorageDirectory().getPath() + "/" + path + "/" + sqlDB.dbname);
+		myOutput = new FileOutputStream(root);
+
 		byte[] buffer = new byte[1024];
 		while ((myInput.read(buffer)) > -1) {
 			myOutput.write(buffer);
