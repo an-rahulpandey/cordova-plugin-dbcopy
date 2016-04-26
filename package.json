@@ -3,7 +3,7 @@
   "version": "1.0.3",
   "description": "Cordova/Phonegap plugin to copy SQLite Database from www directory to app database directory",
   "cordova": {
-    "id": "codova-plugin-dbcopy",
+    "id": "cordova-plugin-dbcopy",
     "platforms": [
       "android",
       "ios"
