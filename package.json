@@ -19,6 +19,7 @@
     "cordova-android",
     "cordova-ios",
     "db copy",
+    "cordova sqlite",
     "database copy",
     "sqlite database copy"
   ],
