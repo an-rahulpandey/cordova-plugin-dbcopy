@@ -78,7 +78,7 @@
 	}
 	
 	NSLog(@"[sqlDB] Source: %@",sourceDB);
-	NSLog(@"[sqlDB] Destinatiion: %@",dbPath);
+	NSLog(@"[sqlDB] Destination: %@",dbPath);
 	
 	//copy database from www directory to target directory
 	if (!([fileManager copyItemAtPath:sourceDB toPath:dbPath error:&error])) {
@@ -243,7 +243,7 @@
 
 	
 	NSLog(@"[sqlDB] Source: %@",dbPath);
-	NSLog(@"[sqlDB] Destinatiion: %@",destination);
+	NSLog(@"[sqlDB] Destination: %@",destination);
 	
 	//copy database from www directory to target directory
 	if (!([fileManager copyItemAtPath:dbPath toPath:destination error:&error])) {
