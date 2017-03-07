@@ -43,7 +43,7 @@ Response format
 
 Currently there are two methods supported by the plugin.
 
-* **Copy**
+**Copy**
 =========================================
 
 This Method allows you the copy the database from www directory.
@@ -69,7 +69,7 @@ This Method allows you the copy the database from www directory.
 
    **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
 
-* **Copy Database from Device Storage**
+**Copy Database from Device Storage**
 ===============================================
 
 This is an untested version. Let me know if you have any suggestions. Also Pull Request are always welcome.
@@ -96,7 +96,7 @@ This is an untested version. Let me know if you have any suggestions. Also Pull 
 
  **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
  
-* **Copy Database To Device Storage**
+**Copy Database To Device Storage**
 ============================================
 
 This is an untested version. Let me know if you have any suggestions. Also Pull Request are always welcome.
@@ -123,7 +123,7 @@ This is an untested version. Let me know if you have any suggestions. Also Pull 
    **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
    
    
-* **Remove**
+**Remove**
 ==================================
 This method allows you to remove the database from the apps default database storage location.
 
