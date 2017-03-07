@@ -29,11 +29,11 @@ Response format
   message : "message contains the response string like Invalid DB Location or DB Doesn't Exists or Db Copied Successfully",
   code: integer value such as 404, 200, 516
 }
-
 ```
+ 
  Code -
 
-```javascript 
+``` 
  404 - DB or Source or Destination Doesn't exists, see message string.
  516 - DB Already Exists.
  200 - Called Method Executed Successfully.
@@ -43,7 +43,8 @@ Response format
 
 Currently there are two methods supported by the plugin.
 
-* ####Copy
+* **Copy**
+
 This Method allows you the copy the database from www directory.
 ```javascript 
     window.plugins.sqlDB.copy(dbname, location, success,error);
@@ -54,85 +55,87 @@ This Method allows you the copy the database from www directory.
 
    **location** -> You can pass three integer arguments here (Use 0 for Android)-
 
-    ```javascript 
-    (for ios only)
-      location = 0; // It will copy the database in the default SQLite Database directory. This is the default location for database
-      or
-      location = 1; // If set will copy the database to Library folder instead of Documents folder.
-      or
-      location = 2; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
-    ```
-
-   **success** -> function will be called if the db is copied sucessfully.
-
-   **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
-
-* ####Copy Database from Device Storage
-
-This is an untested version. Let me know if you have any suggestions. Also Pull Request are always welcome.
-```javascript 
-    window.plugins.sqlDB.copyDbFromStorage(dbname, location, source, success, error);
- ```
- Here - 
-  **dbname** -> Is the name of the database you want to copy. The dbname can be filename (without extensions) or filename.db or filename.sqlite. The plugin will look for and copy the file according to the filename provided here. And the same file name should be used while opening the database via [SQLitePlugin](https://github.com/litehelpers/Cordova-sqlite-storage).
-
-  **location** -> You can pass three integer arguments here (Use 0 for Android)-
-
-    ```javascript 
+ ```javascript 
       (for ios only)
       location = 0; // It will copy the database in the default SQLite Database directory. This is the default location for database
       or
       location = 1; // If set will copy the database to Library folder instead of Documents folder.
       or
       location = 2; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
-    ```
+```
+
+   **success** -> function will be called if the db is copied sucessfully.
+
+   **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
+
+* **Copy Database from Device Storage**
+
+This is an untested version. Let me know if you have any suggestions. Also Pull Request are always welcome.
+```javascript 
+    window.plugins.sqlDB.copyDbFromStorage(dbname, location, source, success, error);
+```
+ Here - 
+ 
+   **dbname** -> Is the name of the database you want to copy. The dbname can be filename (without extensions) or filename.db or filename.sqlite. The plugin will look for and copy the file according to the filename provided here. And the same file name should be used while opening the database via [SQLitePlugin](https://github.com/litehelpers/Cordova-sqlite-storage).
+
+   **location** -> You can pass three integer arguments here (Use 0 for Android)-
+
+```
+       (for ios only)
+       location = 0; // It will copy the database in the default SQLite Database directory. This is the default location for database
+       or
+       location = 1; // If set will copy the database to Library folder instead of Documents folder.
+       or
+       location = 2; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
+```
  **source** -> Source File location like /sdcard/mydb/db.db. Please provide a valid existing location and the dbname should be present in the path.
 
  **success** -> function will be called if the db is copied sucessfully.
 
  **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
  
-* ####Copy Database To Device Storage
+* **Copy Database To Device Storage**
 
 This is an untested version. Let me know if you have any suggestions. Also Pull Request are always welcome.
 ```javascript 
     window.plugins.sqlDB.copyDbToStorage(dbname, location, destination, success, error);
 ```
  Here - 
+ 
  **dbname** -> Is the name of the database you want to copy. The dbname can be filename (without extensions) or filename.db or filename.sqlite. The plugin will look for and copy the file according to the filename provided here. And the same file name should be used while opening the database via [SQLitePlugin](https://github.com/litehelpers/Cordova-sqlite-storage).
-
+ 
  **location** -> You can pass three integer arguments here (Use 0 for Android)-
-
-   ```javascript 
-      (for ios only)
-      location = 0; // It will copy the database in the default SQLite Database directory. This is the default location for database
-      or
-      location = 1; // If set will copy the database to Library folder instead of Documents folder.
-      or
-      location = 2; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
-    ```
- **destination** -> Destination File location like /sdcard/mydb/db.db. Please provide a valid existing location and the dbname should be present in the path.
-
- **success** -> function will be called if the db is copied sucessfully.
-
- **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
-
-
-* ####Remove
+```javascript
+   (for ios only)
+   location = 0; // It will copy the database in the default SQLite Database directory. This is the default location for database
+   or
+   location = 1; // If set will copy the database to Library folder instead of Documents folder.
+   or
+   location = 2; // If set will copy the database from Library/LocalDatabase.
+```
+   **destination** -> Destination File location like /sdcard/mydb/db.db. Please provide a valid existing location and the dbname should be present in the path.
+   
+   **success** -> function will be called if the db is copied sucessfully.
+   
+   **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
+   
+   
+* **Remove**
 This method allows you to remove the database from the apps default database storage location.
 
-  ```javascript 
+```javascript 
     window.plugins.sqlDB.remove(dbname, location, success,error);
-  ```
-  Here -
+```
 
-    **dbname** -> Is the name of the database you want to remove. If the database file is having any extension, please provide that also.
+Here -
 
-    **location** -> The integer value for the location of database, see the copy method for options.
+  **dbname** -> Is the name of the database you want to remove. If the database file is having any extension, please provide that also.
 
-    **success** -> function will be called if the db is removed sucessfully.
+  **location** -> The integer value for the location of database, see the copy method for options.
 
-    **error** -> function will be called if the there is some problem in removing the db or the file doesn't exists on the default database storage location.
+  **success** -> function will be called if the db is removed sucessfully.
+
+  **error** -> function will be called if the there is some problem in removing the db or the file doesn't exists on the default database storage location.
 
 ###Example Usage
 
