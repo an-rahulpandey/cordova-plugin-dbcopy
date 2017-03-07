@@ -34,16 +34,16 @@ Response format
  Code -
 
 ```javascript 
-404 - DB or Source or Destination Doesn't exists, see message string.
-516 - DB Already Exists.
-200 - Called Method Executed Successfully.
+ 404 - DB or Source or Destination Doesn't exists, see message string.
+ 516 - DB Already Exists.
+ 200 - Called Method Executed Successfully.
 ```
 
 ### Methods
 
 Currently there are two methods supported by the plugin.
 
-* #### Copy
+* ####Copy
 This Method allows you the copy the database from www directory.
 ```javascript 
     window.plugins.sqlDB.copy(dbname, location, success,error);
@@ -67,7 +67,7 @@ This Method allows you the copy the database from www directory.
 
    **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
 
-* #### Copy Database from Device Storage
+* ####Copy Database from Device Storage
 
 This is an untested version. Let me know if you have any suggestions. Also Pull Request are always welcome.
 ```javascript 
@@ -92,7 +92,7 @@ This is an untested version. Let me know if you have any suggestions. Also Pull 
 
  **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
  
-* #### Copy Database To Device Storage
+* ####Copy Database To Device Storage
 
 This is an untested version. Let me know if you have any suggestions. Also Pull Request are always welcome.
 ```javascript 
