@@ -177,9 +177,9 @@ public class sqlDB extends CordovaPlugin {
     private void checkDbOnStorage(String db, String src, final CallbackContext callbackContext) {
         File source;
         if (src.indexOf("file://") != -1) {
-            source = new File(src.replace("file://", ""));
+            source = new File(src.replace("file://", "")+db);
         } else {
-            source = new File(src);
+            source = new File(src+db);
         }
         if (source.exists()) {
             sendPluginResponse(200, "DB File Exists At Source Location", false, callbackContext);
