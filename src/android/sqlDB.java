@@ -158,16 +158,17 @@ public class sqlDB extends CordovaPlugin {
 
     private void copyDbToStorage(String dbname, String dest, final CallbackContext callbackContext){
         File source = cordova.getActivity().getDatabasePath(dbname);
-        File destination;
+        File destFolder;
+	File destination;
         if(dest.indexOf("file://") != -1){
-            destination = new File(dest.replace("file://",""));
+            destination = new File(dest.replace("file://","") + dbname);
         } else {
-            destination = new File(dest);
+            destination = new File(dest + dbname);
         }
-        if(!destination.exists()){
-            destination.mkdirs();
+        if(!destFolder.exists()){
+            destFolder.mkdirs();
         }
-
+	
         if(source.exists()) {
             this.newCopyDB(source,destination,callbackContext);
         } else {
