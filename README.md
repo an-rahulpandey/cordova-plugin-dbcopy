@@ -9,7 +9,7 @@ The database file may have extensions or not for e.g the db file name would be s
 
 ### Database file location
 
-The database initial location for both platforms has been now changed to www folder. Now you have to put your database file inside www folder.
+The database file must be present inside the www folder.
 
 ### Installation
 
@@ -20,9 +20,8 @@ Plugin can be install with simple cordova plugin add command -
 
 ### Plugin Response Success and Error
 
-Now you will get a proper plugin response in case of any errors or success.
+Plugin send the response in following format in case of any error or success - 
 
-Response format
 
 ```javascript 
 {
@@ -41,7 +40,7 @@ Response format
 
 ### Methods
 
-Currently there are two methods supported by the plugin.
+Currently there are five methods supported by the plugin.
 
 **Copy**
 =========================================
@@ -69,7 +68,7 @@ This Method allows you the copy the database from www directory.
 
    **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
    
-**Check Database Available on External Storage**
+**Check Database Available on External Storage (Android Only)**
 ===============================================
 ```javascript 
     window.plugins.sqlDB.checkDbOnStorage(dbname, source, success, error);
