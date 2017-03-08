@@ -91,6 +91,8 @@ This is an untested version. Let me know if you have any suggestions. Also Pull 
        location = 2; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
 ```
  **source** -> Source File location like /sdcard/mydb/db.db. Please provide a valid existing location and the dbname should be present in the path.
+ 
+ **deletedb** -> A boolean value if set to true, will delete the existing db from the local app database folder before copying the new db. Please provide proper boolean value true or false;
 
  **success** -> function will be called if the db is copied sucessfully.
 
@@ -116,7 +118,7 @@ This is an untested version. Let me know if you have any suggestions. Also Pull 
    or
    location = 2; // If set will copy the database from Library/LocalDatabase.
 ```
-   **destination** -> Destination File location like /sdcard/mydb/db.db. Please provide a valid existing location and the dbname should be present in the path.
+   **destination** -> Destination File location like /sdcard/mydb/ Please provide a valid existing location and "/" should be present at the end of the path. Do not append db name in the path.
    
    **success** -> function will be called if the db is copied sucessfully.
    
