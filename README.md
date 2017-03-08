@@ -74,7 +74,7 @@ This Method allows you the copy the database from www directory.
 
 This is an untested version. Let me know if you have any suggestions. Also Pull Request are always welcome.
 ```javascript 
-    window.plugins.sqlDB.copyDbFromStorage(dbname, location, source, success, error);
+    window.plugins.sqlDB.copyDbFromStorage(dbname, location, source, deleteolddb, success, error);
 ```
  Here - 
  
@@ -92,7 +92,7 @@ This is an untested version. Let me know if you have any suggestions. Also Pull 
 ```
  **source** -> Source File location like /sdcard/mydb/db.db. Please provide a valid existing location and the dbname should be present in the path.
  
- **deletedb** -> A boolean value if set to true, will delete the existing db from the local app database folder before copying the new db. Please provide proper boolean value true or false;
+ **deleteolddb** -> A boolean value if set to true, will delete the existing db from the local app database folder before copying the new db. Please provide proper boolean value true or false;
 
  **success** -> function will be called if the db is copied sucessfully.
 
