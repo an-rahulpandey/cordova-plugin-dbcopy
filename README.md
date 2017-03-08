@@ -68,6 +68,19 @@ This Method allows you the copy the database from www directory.
    **success** -> function will be called if the db is copied sucessfully.
 
    **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
+   
+**Check Database Available on External Storage**
+===============================================
+```javascript 
+    window.plugins.sqlDB.checkDbOnStorage(dbname, source, success, error);
+```
+ Here - 
+ 
+   **dbname** -> Name of the database file which is available on external or intenral storage
+
+   **source** -> Full native path for the folder in which db file is present. The "/" must be added at the end of path. For.eg. /sdcard/mydb/
+
+
 
 **Copy Database from Device Storage**
 ===============================================
