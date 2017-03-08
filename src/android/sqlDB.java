@@ -163,11 +163,13 @@ public class sqlDB extends CordovaPlugin {
 		
         if(dest.indexOf("file://") != -1){
             destination = new File(dest.replace("file://","") + dbname);
+	    destFolder = new File(dest.replace("file://",""));
         } else {
             destination = new File(dest + dbname);
+	    destFolder = new File(dest);
         }
 			
-	destFolder = new File(dest);
+	
 		
         if(!destFolder.exists()){
             destFolder.mkdirs();
