@@ -72,7 +72,8 @@ public class sqlDB extends CordovaPlugin {
         } else if (action.equalsIgnoreCase("copyDbFromStorage")) {
             String db = args.getString(0);
             String src = args.getString(2);
-            this.copyDbFromStorage(db, src, callbackContext);
+            boolean deletedb = args.getBoolean(3);
+            this.copyDbFromStorage(db, src, deletedb, callbackContext);
             return true;
         } else {
             plresult = new PluginResult(PluginResult.Status.INVALID_ACTION);
@@ -138,7 +139,7 @@ public class sqlDB extends CordovaPlugin {
         }
     }
 
-    private void copyDbFromStorage(String db, String src, final CallbackContext callbackContext) {
+    private void copyDbFromStorage(String db, String src, boolean deletedb, final CallbackContext callbackContext) {
         File source;
         if (src.indexOf("file://") != -1) {
             source = new File(src.replace("file://", ""));
@@ -147,7 +148,22 @@ public class sqlDB extends CordovaPlugin {
         }
 
         if (source.exists()) {
-            this.copyDB(db, source.getAbsolutePath(), callbackContext);
+            if (deletedb) {
+                File path = cordova.getActivity().getDatabasePath(db);
+                Boolean fileExists = path.exists();
+                if (fileExists) {
+                    boolean deleted = path.delete();
+                    if (deleted) {
+                        this.copyDB(db, source.getAbsolutePath(), callbackContext);
+                    } else {
+                        sendPluginResponse(400, "Unable to Delete", true, callbackContext);
+                    }
+                } else {
+                    sendPluginResponse(404, "Old DB Doesn't Exists", true, callbackContext);
+                }
+            } else {
+                this.copyDB(db, source.getAbsolutePath(), callbackContext);
+            }
         } else {
             sendPluginResponse(404, "Invalid DB Source Location", true, callbackContext);
         }
