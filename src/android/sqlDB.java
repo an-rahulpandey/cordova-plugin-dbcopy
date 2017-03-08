@@ -77,7 +77,7 @@ public class sqlDB extends CordovaPlugin {
             return true;
         } else if (action.equalsIgnoreCase("checkDbOnStorage")) {
             String db = args.getString(0);
-            String src = args.getString(2);
+            String src = args.getString(1);
             this.checkDbOnStorage(db, src, callbackContext);
             return true;
         } else {
