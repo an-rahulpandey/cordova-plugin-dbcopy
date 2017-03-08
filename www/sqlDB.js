@@ -15,3 +15,7 @@ exports.copyDbToStorage = function(dbname,location,destination, success,error){
 exports.copyDbFromStorage = function(dbname,location,source, deletedb, success,error){
   exec(success, error, "sqlDB", "copyDbFromStorage", [dbname, location, source, deletedb]);
 };
+
+exports.checkDbOnStorage = function(dbname,location,source, success,error){
+  exec(success, error, "sqlDB", "checkDbOnStorage", [dbname, location, source]);
+};
