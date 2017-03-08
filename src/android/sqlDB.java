@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import android.util.Log;
-
 /**
  * This class echoes a string called from JavaScript.
  */
@@ -67,7 +65,6 @@ public class sqlDB extends CordovaPlugin {
             }
             return true;
         } else if (action.equalsIgnoreCase("copyDbToStorage")) {
-			Log.d("DBSavePlugin", "copyDbToStorage");
             String db = args.getString(0);
             String dest = args.getString(2);
             this.copyDbToStorage(db, dest, callbackContext);
@@ -75,12 +72,11 @@ public class sqlDB extends CordovaPlugin {
         } else if (action.equalsIgnoreCase("copyDbFromStorage")) {
             String db = args.getString(0);
             String src = args.getString(2);
-            boolean deletedb = args.getBoolean(3);
-            this.copyDbFromStorage(db, src, deletedb, callbackContext);
+            boolean deleteolddb = args.getBoolean(3);
+            this.copyDbFromStorage(db, src, deleteolddb, callbackContext);
             return true;
         } else if (action.equalsIgnoreCase("checkDbOnStorage")) {
-            Log.d("DBSavePlugin", "checkDbOnStorage1");
-			String db = args.getString(0);
+            String db = args.getString(0);
             String src = args.getString(2);
             this.checkDbOnStorage(db, src, callbackContext);
             return true;
@@ -148,7 +144,7 @@ public class sqlDB extends CordovaPlugin {
         }
     }
 
-    private void copyDbFromStorage(String db, String src, boolean deletedb, final CallbackContext callbackContext) {
+    private void copyDbFromStorage(String db, String src, boolean deleteolddb, final CallbackContext callbackContext) {
         File source;
         if (src.indexOf("file://") != -1) {
             source = new File(src.replace("file://", ""));
@@ -157,7 +153,7 @@ public class sqlDB extends CordovaPlugin {
         }
 
         if (source.exists()) {
-            if (deletedb) {
+            if (deleteolddb) {
                 File path = cordova.getActivity().getDatabasePath(db);
                 Boolean fileExists = path.exists();
                 if (fileExists) {
@@ -177,27 +173,24 @@ public class sqlDB extends CordovaPlugin {
             sendPluginResponse(404, "Invalid DB Source Location", true, callbackContext);
         }
     }
-	
-	private void checkDbOnStorage(String db, String src, final CallbackContext callbackContext) {
-		Log.d("DBSavePlugin", "checkDbOnStorage");
 
-		File source;
+    private void checkDbOnStorage(String db, String src, final CallbackContext callbackContext) {
+        File source;
         if (src.indexOf("file://") != -1) {
             source = new File(src.replace("file://", ""));
         } else {
             source = new File(src);
         }
         if (source.exists()) {
-		   		Log.d("DBSavePlugin", "exists");
-		} else {
-		   		Log.d("DBSavePlugin", "doesnt exists");
+            sendPluginResponse(200, "DB File Exists At Source Location", false, callbackContext);
+        } else {
             sendPluginResponse(404, "Invalid DB Source Location", true, callbackContext);
         }
 
     }
-	
+
     private void copyDbToStorage(String dbname, String dest, final CallbackContext callbackContext) {
-		Log.d("DBSavePlugin", "copyDbToStorage");
+
         File source = cordova.getActivity().getDatabasePath(dbname);
         File destFolder;
         File destination;
@@ -226,6 +219,4 @@ public class sqlDB extends CordovaPlugin {
             sendPluginResponse(404, "Invalid DB Location or DB Doesn't Exists", true, callbackContext);
         }
     }
-	
-	
 }
