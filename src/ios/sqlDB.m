@@ -71,9 +71,11 @@
 		sourceDB = [wwwDir stringByAppendingPathComponent:dbname];
 	} else {
 		if([src rangeOfString:@"file://"].location != NSNotFound){
-			sourceDB = [src stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+			//sourceDB = [src stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+			sourceDB = [[src stringByReplacingOccurrencesOfString:@"file://" withString:@""] stringByAppendingPathComponent:dbname];
 		} else {
-			sourceDB = src;
+			//sourceDB = src;
+			sourceDB = [src stringByAppendingPathComponent:dbname];
 		}
 	}
 	
@@ -101,71 +103,91 @@
 
 - (void)copy:(CDVInvokedUrlCommand*)command
 {
-
-   // BOOL success;
-    int location = 0;
 	
-    //CDVPluginResult *result = nil;
+	// BOOL success;
+	int location = 0;
 	
-    NSString *dbname = [command argumentAtIndex:0];
-    location = [[command argumentAtIndex:1] intValue];
-    //NSMutableDictionary *err = [NSMutableDictionary dictionaryWithCapacity:2];
-    
-    NSLog(@"[sqlDB] Dbname = %@",dbname);
-    NSLog(@"[sqlDB] location = %d",location);
+	//CDVPluginResult *result = nil;
+	
+	NSString *dbname = [command argumentAtIndex:0];
+	location = [[command argumentAtIndex:1] intValue];
+	//NSMutableDictionary *err = [NSMutableDictionary dictionaryWithCapacity:2];
+	
+	NSLog(@"[sqlDB] Dbname = %@",dbname);
+	NSLog(@"[sqlDB] location = %d",location);
 	
 	[self copyDb:location source:@"www" db:dbname callBackID:command.callbackId];
-    
-   // [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+	
+	// [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
+
+- (void)checkDbOnStorage : (CDVInvokedUrlCommand *) command {
+	NSString *dbname = [command argumentAtIndex:0];
+	NSString *source = [command argumentAtIndex:1];
+	NSString *src;
+	if([source rangeOfString:@"file://"].location != NSNotFound){
+		//sourceDB = [src stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+		src = [[source stringByReplacingOccurrencesOfString:@"file://" withString:@""] stringByAppendingPathComponent:dbname];
+	} else {
+		//sourceDB = src;
+		src = [source stringByAppendingPathComponent:dbname];
+	}
+	
+	if([fileManager fileExistsAtPath:src]) {
+		[self sendPluginResponse:200 msg:@"File Exists" err:NO callBackID:command.callbackId];
+	} else {
+		[self sendPluginResponse:400 msg:@"File Doesn't Exists" err:NO callBackID:command.callbackId];
+	}
+}
+
 
 -(void)remove:(CDVInvokedUrlCommand *)command
 {
-    int location = 0;
-    NSString *filename = [command argumentAtIndex:0];
-    location = [[command argumentAtIndex:1] intValue];
-    //CDVPluginResult *result = nil;
-    
-    documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    libraryDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    fileManager = [NSFileManager defaultManager];
-    
-    if (location == 0) {
-        dbPath = [documentsDirectory stringByAppendingPathComponent:filename];
-    } else if(location == 1) {
-        dbPath = [libraryDirectory stringByAppendingPathComponent:filename];
-    } else {
-        NSString *nosync = [libraryDirectory stringByAppendingPathComponent:@"LocalDatabase"];
-        dbPath = [nosync stringByAppendingPathComponent:filename];
-    }
-    
-    NSLog(@"[sqlDB] dbPath for deletion= %@",dbPath);
-
-   // NSMutableDictionary *err = [NSMutableDictionary dictionaryWithCapacity:2];
-    
-    if([fileManager fileExistsAtPath:dbPath])
-    {
-        NSError *error = nil;
-        [fileManager removeItemAtPath:dbPath error:&error];
-        if (error) {
-//            [err setObject:err.description forKey:@"message"];
-//            [err setObject:[NSNumber numberWithUnsignedInteger:error.code] forKey:@"code"];
-//            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:err];
+	int location = 0;
+	NSString *filename = [command argumentAtIndex:0];
+	location = [[command argumentAtIndex:1] intValue];
+	//CDVPluginResult *result = nil;
+	
+	documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	
+	libraryDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	
+	fileManager = [NSFileManager defaultManager];
+	
+	if (location == 0) {
+		dbPath = [documentsDirectory stringByAppendingPathComponent:filename];
+	} else if(location == 1) {
+		dbPath = [libraryDirectory stringByAppendingPathComponent:filename];
+	} else {
+		NSString *nosync = [libraryDirectory stringByAppendingPathComponent:@"LocalDatabase"];
+		dbPath = [nosync stringByAppendingPathComponent:filename];
+	}
+	
+	NSLog(@"[sqlDB] dbPath for deletion= %@",dbPath);
+	
+	// NSMutableDictionary *err = [NSMutableDictionary dictionaryWithCapacity:2];
+	
+	if([fileManager fileExistsAtPath:dbPath])
+	{
+		NSError *error = nil;
+		[fileManager removeItemAtPath:dbPath error:&error];
+		if (error) {
+			//            [err setObject:err.description forKey:@"message"];
+			//            [err setObject:[NSNumber numberWithUnsignedInteger:error.code] forKey:@"code"];
+			//            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:err];
 			[self sendPluginResponse:error.code msg:error.description err:YES callBackID:command.callbackId];
-        } else {
-//            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:true];
+		} else {
+			//            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:true];
 			[self sendPluginResponse:200 msg:@"Removed" err:NO callBackID:command.callbackId];
-        }
-    }
-    else
-    {
-        //result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"File Doesn't Exists"];
+		}
+	}
+	else
+	{
+		//result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"File Doesn't Exists"];
 		[self sendPluginResponse:404 msg:@"File Does Not Exists" err:YES callBackID:command.callbackId];
-    }
-    
-//    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+	}
+	
+	//    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
 
@@ -240,7 +262,11 @@
 	if([dest rangeOfString:@"file://"].location != NSNotFound){
 		destination = [dest stringByReplacingOccurrencesOfString:@"file://" withString:@""];
 	}
-
+	
+	BOOL dirExists = [fileManager fileExistsAtPath:destination isDirectory:YES];
+	if(!dirExists){
+		[[NSFileManager defaultManager] createDirectoryAtPath:destination withIntermediateDirectories:YES attributes:nil error:&error];
+	}
 	
 	NSLog(@"[sqlDB] Source: %@",dbPath);
 	NSLog(@"[sqlDB] Destination: %@",destination);
