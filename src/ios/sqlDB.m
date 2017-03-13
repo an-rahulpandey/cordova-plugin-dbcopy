@@ -257,19 +257,26 @@
 		}
 	}
 	
-	NSString *destination=dest;
+	NSString *destination = dest;
 	
 	if([dest rangeOfString:@"file://"].location != NSNotFound){
 		destination = [dest stringByReplacingOccurrencesOfString:@"file://" withString:@""];
 	}
 	
-	BOOL dirExists = [fileManager fileExistsAtPath:destination isDirectory:YES];
+	NSLog(@"[sqlDB] destination = %@",destination);
+//	NSLog(@"[sqlDB] dest = %@",dest);
+	BOOL isDir = YES;
+	BOOL dirExists = [fileManager fileExistsAtPath:destination isDirectory:&isDir];
+	NSLog(@"[sqlDB] destination = %@",destination);
 	if(!dirExists){
 		[[NSFileManager defaultManager] createDirectoryAtPath:destination withIntermediateDirectories:YES attributes:nil error:&error];
 	}
 	
+	destination = [destination stringByAppendingPathComponent:dbname];
+	
 	NSLog(@"[sqlDB] Source: %@",dbPath);
 	NSLog(@"[sqlDB] Destination: %@",destination);
+
 	
 	//copy database from www directory to target directory
 	if (!([fileManager copyItemAtPath:dbPath toPath:destination error:&error])) {
