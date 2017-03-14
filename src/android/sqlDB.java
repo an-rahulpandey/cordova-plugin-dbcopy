@@ -67,7 +67,8 @@ public class sqlDB extends CordovaPlugin {
         } else if (action.equalsIgnoreCase("copyDbToStorage")) {
             String db = args.getString(0);
             String dest = args.getString(2);
-            this.copyDbToStorage(db, dest, callbackContext);
+            boolean overwrite = args.getBoolean(3);
+            this.copyDbToStorage(db, dest, overwrite, callbackContext);
             return true;
         } else if (action.equalsIgnoreCase("copyDbFromStorage")) {
             String db = args.getString(0);
@@ -189,7 +190,7 @@ public class sqlDB extends CordovaPlugin {
 
     }
 
-    private void copyDbToStorage(String dbname, String dest, final CallbackContext callbackContext) {
+    private void copyDbToStorage(String dbname, String dest, boolean overwrite, final CallbackContext callbackContext) {
 
         File source = cordova.getActivity().getDatabasePath(dbname);
         File destFolder;
@@ -213,8 +214,14 @@ public class sqlDB extends CordovaPlugin {
             return;
         }
 
+        //Check if the db exists at source
         if (source.exists()) {
-            this.newCopyDB(source, destination, callbackContext);
+            //check if the db file is already present at destination and overwrite flag is false
+            if(destination.exists() && !overwrite) {
+                sendPluginResponse(400, "DB already exists at destination", true, callbackContext);
+            } else {
+                this.newCopyDB(source, destination, callbackContext);
+            }
         } else {
             sendPluginResponse(404, "Invalid DB Location or DB Doesn't Exists", true, callbackContext);
         }
