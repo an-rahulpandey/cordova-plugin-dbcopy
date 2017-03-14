@@ -115,7 +115,7 @@ This is an untested version. Let me know if you have any suggestions. Also Pull 
 
 This is an untested version. Let me know if you have any suggestions. Also Pull Request are always welcome.
 ```javascript 
-    window.plugins.sqlDB.copyDbToStorage(dbname, location, destination, success, error);
+    window.plugins.sqlDB.copyDbToStorage(dbname, location, destination, overwrite, success, error);
 ```
  Here - 
  
@@ -131,6 +131,8 @@ This is an untested version. Let me know if you have any suggestions. Also Pull 
    location = 2; // If set will copy the database from Library/LocalDatabase.
 ```
    **destination** -> Destination File location like /sdcard/mydb/ Please provide a valid existing location and "/" should be present at the end of the path. Do not append db name in the path.
+   
+   **overwrite** -> if set to true, then will replace the file at the destination. Otherwise will throw an error, if destination file already exists.
    
    **success** -> function will be called if the db is copied sucessfully.
    
