@@ -8,8 +8,8 @@ exports.remove = function(dbname, location, success,error) {
   exec(success, error, "sqlDB", "remove", [dbname, location]);
 };
 
-exports.copyDbToStorage = function(dbname,location,destination, success,error){
-  exec(success, error, "sqlDB", "copyDbToStorage", [dbname, location, destination]);
+exports.copyDbToStorage = function(dbname,location,destination, overwrite, success,error){
+  exec(success, error, "sqlDB", "copyDbToStorage", [dbname, location, destination, overwrite]);
 };
 
 exports.copyDbFromStorage = function(dbname,location,source, deleteolddb, success,error){
