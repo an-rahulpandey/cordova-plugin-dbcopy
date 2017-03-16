@@ -34,7 +34,7 @@
 	NSError *error = nil;
 	fileManager = [NSFileManager defaultManager];
 	
-	if (location == 0) {
+	if (location == 2) {
 		//set Document as default target directory
 		documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 		dbPath = [documentsDirectory stringByAppendingPathComponent:dbname];
@@ -71,11 +71,11 @@
 		sourceDB = [wwwDir stringByAppendingPathComponent:dbname];
 	} else {
 		if([src rangeOfString:@"file://"].location != NSNotFound){
-			//sourceDB = [src stringByReplacingOccurrencesOfString:@"file://" withString:@""];
-			sourceDB = [[src stringByReplacingOccurrencesOfString:@"file://" withString:@""] stringByAppendingPathComponent:dbname];
+			sourceDB = [src stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+			//sourceDB = [[src stringByReplacingOccurrencesOfString:@"file://" withString:@""] stringByAppendingPathComponent:dbname];
 		} else {
-			//sourceDB = src;
-			sourceDB = [src stringByAppendingPathComponent:dbname];
+			sourceDB = src;
+			//sourceDB = [src stringByAppendingPathComponent:dbname];
 		}
 	}
 	
@@ -202,12 +202,40 @@
 	NSString *dbname = [command argumentAtIndex:0];
 	location = [[command argumentAtIndex:1] intValue];
 	NSString *src = [command argumentAtIndex:2];
+	BOOL deleteolddb = [[command argumentAtIndex:3] boolValue];
+	BOOL copyContinue = YES;
+	NSError *error = nil;
+	NSLog(@"deleteolddb = %d",deleteolddb);
+	if(deleteolddb) {
+		documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+		
+		libraryDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+		
+		fileManager = [NSFileManager defaultManager];
+		
+		if (location == 0) {
+			NSString *nosync = [libraryDirectory stringByAppendingPathComponent:@"LocalDatabase"];
+			dbPath = [nosync stringByAppendingPathComponent:dbname];
+			
+		} else if(location == 1) {
+			dbPath = [libraryDirectory stringByAppendingPathComponent:dbname];
+		} else {
+			dbPath = [documentsDirectory stringByAppendingPathComponent:dbname];
+		}
+		
+		if(([fileManager fileExistsAtPath:dbPath]) == YES){
+			if(!([fileManager removeItemAtPath:dbPath error:&error])) {
+				[self sendPluginResponse:error.code msg:error.description err:YES callBackID:command.callbackId];
+				copyContinue = NO;
+			}
+		}
+	}
 	//NSMutableDictionary *err = [NSMutableDictionary dictionaryWithCapacity:2];
-	
 	NSLog(@"[sqlDB] Dbname = %@",dbname);
 	NSLog(@"[sqlDB] location = %d",location);
-	
-	[self copyDb:location source:src db:dbname callBackID:command.callbackId];
+	if(copyContinue) {
+		[self copyDb:location source:src db:dbname callBackID:command.callbackId];
+	}
 }
 
 -(void) copyDbToStorage:(CDVInvokedUrlCommand *) command
@@ -219,6 +247,7 @@
 	NSString *dbname = [command argumentAtIndex:0];
 	location = [[command argumentAtIndex:1] intValue];
 	NSString *dest = [command argumentAtIndex:2];
+	BOOL overwrite = [[command argumentAtIndex:3] boolValue];
 	//NSMutableDictionary *err = [NSMutableDictionary dictionaryWithCapacity:2];
 	
 	NSLog(@"[sqlDB] Dbname = %@",dbname);
@@ -228,7 +257,7 @@
 	NSError *error = nil;
 	fileManager = [NSFileManager defaultManager];
 	
-	if (location == 0) {
+	if (location == 2) {
 		//set Document as default target directory
 		documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 		dbPath = [documentsDirectory stringByAppendingPathComponent:dbname];
@@ -276,23 +305,34 @@
 	
 	NSLog(@"[sqlDB] Source: %@",dbPath);
 	NSLog(@"[sqlDB] Destination: %@",destination);
-
+	BOOL copyContinue = YES;
 	
-	//copy database from www directory to target directory
-	if (!([fileManager copyItemAtPath:dbPath toPath:destination error:&error])) {
-		NSLog(@"[sqlDB] Could not copy file from %@ to %@. Error = %@",dbPath,destination,error);
-		[self sendPluginResponse:error.code msg:error.description err:YES callBackID:command.callbackId];
-		//        NSInteger ecode = [error code];
-		
-		//        [err setObject:[NSNumber numberWithUnsignedInteger:ecode] forKey:@"code"];
-		//
-		//        [err setObject:error.description forKey:@"message"];
-		//
-		//        result = [CDVPluginResult resultWithStatus: CDVCommandStatus_ERROR messageAsDictionary:err];
-	} else {
-		NSLog(@"File Copied objc");
-		//        result =  [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"File Copied"];
-		[self sendPluginResponse:200 msg:@"File Copied" err:NO callBackID:command.callbackId];
+	if([fileManager fileExistsAtPath:destination] == YES) {
+		NSLog(@"Ovwerwrite = %d",overwrite);
+		if(overwrite) {
+			if(!([fileManager removeItemAtPath:destination error:&error])) {
+				[self sendPluginResponse:error.code msg:error.description err:YES callBackID:command.callbackId];
+				copyContinue = NO;
+			}
+		}
+	}
+	if(copyContinue) {
+		//copy database from www directory to target directory
+		if (!([fileManager copyItemAtPath:dbPath toPath:destination error:&error])) {
+			NSLog(@"[sqlDB] Could not copy file from %@ to %@. Error = %@",dbPath,destination,error);
+			[self sendPluginResponse:error.code msg:error.description err:YES callBackID:command.callbackId];
+			//        NSInteger ecode = [error code];
+			
+			//        [err setObject:[NSNumber numberWithUnsignedInteger:ecode] forKey:@"code"];
+			//
+			//        [err setObject:error.description forKey:@"message"];
+			//
+			//        result = [CDVPluginResult resultWithStatus: CDVCommandStatus_ERROR messageAsDictionary:err];
+		} else {
+			NSLog(@"File Copied objc");
+			//        result =  [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"File Copied"];
+			[self sendPluginResponse:200 msg:@"File Copied" err:NO callBackID:command.callbackId];
+		}
 	}
 }
 
