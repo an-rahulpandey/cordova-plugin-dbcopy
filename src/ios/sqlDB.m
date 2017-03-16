@@ -154,7 +154,7 @@
 	
 	fileManager = [NSFileManager defaultManager];
 	
-	if (location == 0) {
+	if (location == 2) {
 		dbPath = [documentsDirectory stringByAppendingPathComponent:filename];
 	} else if(location == 1) {
 		dbPath = [libraryDirectory stringByAppendingPathComponent:filename];
