@@ -2,6 +2,28 @@ cordova-plugin-dbcopy
 =====================
 
 Add a prepopulated SQLite database in your Phonegap/Cordova Android and iOS app.
+### IMPORTANT UPGRADE NOTE
+
+The location has been changed in respect with the sqlite plugin location. So from now on location will be -
+
+```
+       location = 0; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
+       or
+       location = 1; // If set will copy the database to Library folder instead of Documents folder.
+       or
+       location = 2; // It will copy the database in the default SQLite Database directory. This is the default location for database
+```
+**If you are upgrading an old app then please change the paramters according to above snippet.**
+
+In the old version location was **(Do not use this as reference for current version)**- 
+
+```
+       location = 0; // It will copy the database in the Documents directory. This is the default location for database
+       or
+       location = 1; // If set will copy the database to Library folder instead of Documents folder.
+       or
+       location = 2; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
+```
 
 ### Note
 
@@ -57,11 +79,11 @@ This Method allows you the copy the database from www directory.
 
  ```javascript 
       (for ios only)
-      location = 0; // It will copy the database in the default SQLite Database directory. This is the default location for database
-      or
-      location = 1; // If set will copy the database to Library folder instead of Documents folder.
-      or
-      location = 2; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
+       location = 0; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
+       or
+       location = 1; // If set will copy the database to Library folder instead of Documents folder.
+       or
+       location = 2; // It will copy the database in the default SQLite Database directory. This is the default location for database
 ```
 
    **success** -> function will be called if the db is copied sucessfully.
@@ -96,11 +118,11 @@ This is an untested version. Let me know if you have any suggestions. Also Pull 
 
 ```
        (for ios only)
-       location = 0; // It will copy the database in the default SQLite Database directory. This is the default location for database
+       location = 0; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
        or
        location = 1; // If set will copy the database to Library folder instead of Documents folder.
        or
-       location = 2; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
+       location = 2; // It will copy the database in the default SQLite Database directory. This is the default location for database
 ```
  **source** -> Source File location like /sdcard/mydb/db.db. Please provide a valid existing location and the dbname should be present in the path.
  
@@ -124,11 +146,11 @@ This is an untested version. Let me know if you have any suggestions. Also Pull 
  **location** -> You can pass three integer arguments here (Use 0 for Android)-
 ```javascript
    (for ios only)
-   location = 0; // It will copy the database in the default SQLite Database directory. This is the default location for database
+   location = 0; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
    or
    location = 1; // If set will copy the database to Library folder instead of Documents folder.
    or
-   location = 2; // If set will copy the database from Library/LocalDatabase.
+   location = 2; // It will copy the database in the default SQLite Database directory. This is the default location for database
 ```
    **destination** -> Destination File location like /sdcard/mydb/ Please provide a valid existing location and "/" should be present at the end of the path. Do not append db name in the path.
    
@@ -166,7 +188,7 @@ function dbcopy()
 {
         //Database filename to be copied is demo.db
 
-        //location = 0, will copy the db to default SQLite Database Directory
+        //location = 0, will copy the db to default SQLite Database Directory, /Library/LocalDatabase (Disable iCloud Backup)
         window.plugins.sqlDB.copy("demo.db", 0, copysuccess,copyerror);
 
         or
@@ -176,7 +198,7 @@ function dbcopy()
 
         or
 
-        //location = 2, will copy the database to /Library/LocalDatabase folder (Disable iCloud Backup)
+        //location = 2, will copy the database to /Documents folder 
         window.plugins.sqlDB.copy("demo.db", 2, copysuccess,copyerror);
 
 }
