@@ -90,7 +90,7 @@ This Method allows you the copy the database from www directory.
 
    **error** -> function will be called if the there is some problem in copying the db or the file already exists on the location.
    
-**Check Database Available on External Storage (Android Only)**
+**Check Database Available on External Storage**
 ===============================================
 ```javascript 
     window.plugins.sqlDB.checkDbOnStorage(dbname, source, success, error);
