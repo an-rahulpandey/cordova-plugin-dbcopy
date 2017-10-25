@@ -71,10 +71,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				throw new Error(err.getMessage());
 			}
 		} catch (Exception e) {
-			Log.d("CordovaLog","DB Not Present in www folder");
+			Log.d("CordovaLog",e.getMessage());
 			try {
-				response.put("message", "DB Not Present in www folder");
-	            response.put("code", 400);
+				response.put("message", e.getMessage());
+	            		response.put("code", 400);
 				plresult = new PluginResult(PluginResult.Status.ERROR, response);
 	            callbackContext.sendPluginResult(plresult);    
             } catch (JSONException err1) {
