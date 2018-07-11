@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void createdatabase(File dbPath, String source, final CallbackContext callbackContext) throws IOException {
 
 		// Log.d("CordovaLog","Inside CreateDatabase = "+dbPath);
-		//this.getReadableDatabase();
+		this.getReadableDatabase();
 		try {
 			copyDatabase(dbPath, source, callbackContext);
 		} catch (IOException e) {
