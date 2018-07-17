@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import android.content.Context;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -21,6 +22,8 @@ import org.json.JSONObject;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private Context myContext;
+	private SQLiteDatabase database;
+	private String databasePath;
 
 	public DatabaseHelper(Context context) {
 		super(context, sqlDB.dbname, null, 1);
@@ -30,7 +33,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public void createdatabase(File dbPath, String source, final CallbackContext callbackContext) throws IOException {
 
-		// Log.d("CordovaLog","Inside CreateDatabase = "+dbPath);
+		 Log.d("CordovaLog","Inside CreateDatabase getAbsolutePath= "+dbPath.getAbsolutePath());
+		Log.d("CordovaLog","Inside CreateDatabase path = "+dbPath.getPath());
+		databasePath = dbPath.getAbsolutePath();
 		this.getReadableDatabase();
 		try {
 			copyDatabase(dbPath, source, callbackContext);
@@ -63,11 +68,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			myOutput.close();
 			myInput.close();
 			try {
+				this.openDataBase();
 				response.put("message", "Db Copied");
 	            response.put("code", 200);
 				plresult = new PluginResult(PluginResult.Status.OK,response);
+				this.close();
 				callbackContext.sendPluginResult(plresult);
-			} catch (JSONException err) {
+			} catch (Exception err) {
 				throw new Error(err.getMessage());
 			}
 		} catch (Exception e) {
@@ -81,6 +88,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				throw new Error(err1.getMessage());
 			}
 		}
+	}
+
+	public void openDataBase() throws SQLException {
+
+		//Open the database
+		database = SQLiteDatabase.openDatabase(databasePath, null, SQLiteDatabase.OPEN_READONLY);
+
+	}
+
+	@Override
+	public synchronized void close() {
+
+		if(database != null)
+			database.close();
+
+		super.close();
+
 	}
 
 

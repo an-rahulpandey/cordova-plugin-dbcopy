@@ -1,20 +1,19 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-dbcopy"
-        version="2.0.0"
-        xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="cordova-plugin-dbcopy" version="2.1.0" 
+    xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <name>sqlDB</name>
 
     <description>Copy SQLite Database to Document Directory</description>
 
-     <license>Apache 2.0</license>
+    <license>Apache 2.0</license>
 
-     <author>Rahul Pandey</author>
+    <author>Rahul Pandey</author>
 
-     <engines>
+    <engines>
         <engine name="cordova" version=">=3.0.0" />
-     </engines>
+    </engines>
 
     <js-module name="sqlDB" src="www/sqlDB.js">
         <clobbers target="window.plugins.sqlDB" />
