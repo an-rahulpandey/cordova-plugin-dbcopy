@@ -90,7 +90,7 @@ public class sqlDB extends CordovaPlugin {
         }
     }
 
-    private void copyDB(String dbName, final String src, final CallbackContext callbackContext) {
+    private void copyDB(final String dbName, final String src, final CallbackContext callbackContext) {
 
         final File dbpath;
         dbname = dbName;
