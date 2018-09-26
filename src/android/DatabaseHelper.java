@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import android.os.Build;
 
 import android.content.Context;
 import android.database.SQLException;
@@ -33,10 +34,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public void createdatabase(File dbPath, String source, final CallbackContext callbackContext) throws IOException {
 
-		 Log.d("CordovaLog","Inside CreateDatabase getAbsolutePath= "+dbPath.getAbsolutePath());
+		Log.d("CordovaLog","Inside CreateDatabase getAbsolutePath= "+dbPath.getAbsolutePath());
 		Log.d("CordovaLog","Inside CreateDatabase path = "+dbPath.getPath());
 		databasePath = dbPath.getAbsolutePath();
 		this.getReadableDatabase();
+        if(Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.O) {
+            this.close();
+        }
 		try {
 			copyDatabase(dbPath, source, callbackContext);
 		} catch (IOException e) {
@@ -70,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			try {
 				this.openDataBase();
 				response.put("message", "Db Copied");
-	            response.put("code", 200);
+				response.put("code", 200);
 				plresult = new PluginResult(PluginResult.Status.OK,response);
 				this.close();
 				callbackContext.sendPluginResult(plresult);
@@ -81,10 +85,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			Log.d("CordovaLog",e.getMessage());
 			try {
 				response.put("message", e.getMessage());
-	            		response.put("code", 400);
+				response.put("code", 400);
 				plresult = new PluginResult(PluginResult.Status.ERROR, response);
-	            callbackContext.sendPluginResult(plresult);    
-            } catch (JSONException err1) {
+				callbackContext.sendPluginResult(plresult);
+			} catch (JSONException err1) {
 				throw new Error(err1.getMessage());
 			}
 		}
