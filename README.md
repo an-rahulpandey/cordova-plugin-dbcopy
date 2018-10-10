@@ -2,9 +2,11 @@ cordova-plugin-dbcopy
 =====================
 
 Add a prepopulated SQLite database in your Phonegap/Cordova Android and iOS app.
-### IMPORTANT UPGRADE NOTE
+### IMPORTANT NOTE
 
-The location has been changed in respect with the sqlite plugin location. So from now on location will be -
+1. The database file may have extensions or not for e.g the db file name would be sample.db or sample.sqlite or sample. It doesn't matter what is the file extension, just remember to use the whole filename with extensions(if having one otherwise not) as a paramter when passing to the plugin methods.
+
+2. Location Parameters in plugin function means -
 
 ```
        location = 0; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
@@ -13,21 +15,8 @@ The location has been changed in respect with the sqlite plugin location. So fro
        or
        location = 2; // It will copy the database in the default SQLite Database directory. This is the default location for database
 ```
-**If you are upgrading an old app then please change the paramters according to above snippet.**
+3. For Android, please set the target-sdk-version to minimum 26 in config.xml
 
-In the old version location was **(Do not use this as reference for current version)**- 
-
-```
-       location = 0; // It will copy the database in the Documents directory. This is the default location for database
-       or
-       location = 1; // If set will copy the database to Library folder instead of Documents folder.
-       or
-       location = 2; // (Disable iCloud Backup) If set will copy the database to Library/LocalDatabase. The database will not be synced by the iCloud Backup.
-```
-
-### Note
-
-The database file may have extensions or not for e.g the db file name would be sample.db or sample.sqlite or sample. It doesn't matter what is the file extension, just remember to use the whole filename with extensions(if having one otherwise not) as a paramter when passing to the plugin methods.
 
 ### Database file location
 
