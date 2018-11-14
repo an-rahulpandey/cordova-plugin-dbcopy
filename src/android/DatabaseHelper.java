@@ -38,9 +38,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		Log.d("CordovaLog","Inside CreateDatabase path = "+dbPath.getPath());
 		databasePath = dbPath.getAbsolutePath();
 		this.getReadableDatabase();
-        if(Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.O) {
-            this.close();
-        }
+		if(Build.VERSION.SDK_INT > 26) {
+		    this.close();
+		}
 		try {
 			copyDatabase(dbPath, source, callbackContext);
 		} catch (IOException e) {
