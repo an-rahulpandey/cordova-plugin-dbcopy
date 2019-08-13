@@ -150,7 +150,7 @@ public class sqlDB extends CordovaPlugin {
                         try {
                             dbhelper.createdatabase(dbpath, src, callbackContext);
                         } catch (Exception err) {
-                            sendPluginResponse(400, err.getMessage(), true, callbackContext);
+                            sendPluginResponse(400, e.getMessage(), true, callbackContext);
                         }
                     }
                 }
